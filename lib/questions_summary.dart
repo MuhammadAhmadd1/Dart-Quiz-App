@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class QuestionsSummary extends StatelessWidget {
+  // Constructor that takes a list of summary data
   const QuestionsSummary(this.summaryData, {super.key});
-  final List<Map<String, Object?>> summaryData; // Use Object? for nullable fields
+
+  // List containing summary data for questions
+  final List<Map<String, Object>> summaryData;
 
   @override
   Widget build(BuildContext context) {
@@ -11,14 +14,24 @@ class QuestionsSummary extends StatelessWidget {
         (data) {
           return Row(
             children: [
-              Text(((data['question_index'] as int?) ?? 0 + 1).toString()), // Provide a default value for index
+              // Display question index (1-based)
+              Text(((data['question_index'] as int) + 1).toString()), 
+              
+              // Expanded widget to allow flexible space usage for question details
               Expanded(
-                child: Column(              
+                child: Column(
                   children: [
-                    Text((data['question'] as String?) ?? 'No question'), // Provide default text if null
+                    // Display the question text
+                    Text(data['question'] as String),
+                    
+                    // Space between question and answers
                     const SizedBox(height: 5),
-                    Text((data['user_answer'] as String?) ?? 'No answer'), // Default if null
-                    Text((data['correct_answer'] as String?) ?? 'No correct answer'), // Default if null
+                    
+                    // Display the user's answer
+                    Text(data['user_answer'] as String),
+                    
+                    // Display the correct answer
+                    Text(data['correct_answer'] as String),
                   ],
                 ),
               ),
