@@ -56,6 +56,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
             const SizedBox(height: 30), // Add space between the question and answers
 
             // Map over the shuffled answers and create an AnswerButton for each
+            // ... converts the answers into comma seperated values instead of widgets
             ...currentQuestion.getShuffledAnswers().map((answer) {
               return AnswerButton(
                 answerText: answer, // Pass the answer text to the button
