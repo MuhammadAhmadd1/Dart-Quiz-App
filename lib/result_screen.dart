@@ -3,13 +3,14 @@ import 'package:quiz_app/data/questions.dart';
 import 'package:quiz_app/questions_summary.dart';
 
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({
+  const ResultsScreen({required this.onRestart,
     super.key,
     required this.chosenAnswers,
   });
 
   // List of answers chosen by the user
   final List<String> chosenAnswers;
+  final void  Function() onRestart;
 
   // Method to generate summary data for the results
   List<Map<String, Object>> getSummaryData() {
@@ -33,7 +34,7 @@ class ResultsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //stored into summaryData so function does not exec twice
-    final summaryData = getSummaryData();   
+    final summaryData = getSummaryData();
     //total num of questions
     final numQuestions = questions.length;
     //num of questions user answered correctly
@@ -50,7 +51,13 @@ class ResultsScreen extends StatelessWidget {
           children: [
             // Display message with the score
             Text(
-                'You answered $numCorrectAnswers out of $numQuestions questions correctly!'),
+              'You answered $numCorrectAnswers out of $numQuestions questions correctly!',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 17,
+              ),
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 30), // Space between elements
             // Summary of questions and answers
             QuestionsSummary(summaryData),
@@ -60,7 +67,14 @@ class ResultsScreen extends StatelessWidget {
               onPressed: () {
                 // Define restart quiz action here
               },
-              child: const Text('Restart Quiz!'),
+              child: TextButton.icon(
+                onPressed: onRestart,
+                label: const Text(
+                  'Restart',
+                  style: TextStyle(color: Colors.white),
+                ),
+                icon: const Icon(Icons.restart_alt,color: Colors.white,),
+              ),
             ),
           ],
         ),
